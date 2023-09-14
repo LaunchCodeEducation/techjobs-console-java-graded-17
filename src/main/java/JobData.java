@@ -67,10 +67,13 @@ public class JobData {
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
-        for (HashMap<String, String> row : allJobs) {
-            String aValue = row.get(column);
+        // Convert the search term to lowercase
+        String searchValue = value.toLowerCase();
 
-            if (aValue.contains(value)) {
+        for (HashMap<String, String> row : allJobs) {
+            String aValue = row.get(column).toLowerCase(); // Convert field value to lowercase
+
+            if (aValue.contains(searchValue)) {
                 jobs.add(row);
             }
         }
@@ -90,14 +93,18 @@ public class JobData {
 
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
+        // Convert the search term to lowercase
+        String searchValue = value.toLowerCase();
+
         // Iterate over all jobs
         for (HashMap<String, String> job : allJobs) {
             boolean found = false;
 
             // Iterate over all columns of the job using Map.Entry
             for (Map.Entry<String, String> entry : job.entrySet()) {
-                String columnValue = entry.getValue();
-                if (columnValue.toLowerCase().contains(value.toLowerCase())) {
+                String columnValue = entry.getValue().toLowerCase(); // Convert field value to lowercase
+
+                if (columnValue.contains(searchValue)) {
                     found = true;
                     break; // If found in any column, no need to continue checking
                 }
@@ -110,7 +117,6 @@ public class JobData {
 
         return jobs;
     }
-
     /**
      * Read in data from a CSV file and store it in a list
      */
